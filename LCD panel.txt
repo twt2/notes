@@ -1,0 +1,21 @@
+AdaFruit LCD panel (on top of i2c port expander)
+
+connector
+[01]-VSS
+[02]-VDD
+[03]-VD
+[04]-RS
+[05]-RW
+[06]-E
+[07]-DB0
+[08]-DB1
+[09]-DB2
+[10]-DB3
+[11]-DB4
+[12]-DB5
+[13]-DB6
+[14]-DB7
+[15]-LED+
+[16]- -R
+[17]- -G
+[18]- -B
