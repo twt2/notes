@@ -3,8 +3,10 @@ Equivalent to DHT22
 
 [grill side of sensor]
 [3v] [dat] [--] [GND]
- [4.7k]
- 
+ [4.7KΏ]
+
+4.7KΏ resistor between 3v and data lines (brings line high)
+
 AdaFruit library uses GPIO4 / Pi pin 7 by default.
 (This conflicts with w1/OneWire kernel module default GPIO4 / Pi pin 7.)
 (AM2302 does NOT use w1/OneWire.)
