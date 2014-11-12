@@ -1,0 +1,24 @@
+DS18B20 temperature sensor
+
+bottom view [flat side up]
+
+ ______________
+|             |
+| [1] [2] [3] |
+|             |
+  \         /
+    -------
+
+[1]- GND / Pi Pin 6
+[2]- Data/GPIO4/ Pi Pin 7
+[3]- 3.3v / Pi Pin 1
+
+4.7kΏ resistor between [2] and [3] (brings data line high)
+
+
+loading modules:
+sudo modprobe w1-gpio w1-therm
+
+ls -l /sys/bus/w1/devices/
+cat 28-*/w1_slave
+
