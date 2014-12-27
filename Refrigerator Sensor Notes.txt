@@ -46,6 +46,12 @@ http://chrisrogers.me.uk/blog/turn-raspberry-pi-off-using-adafruit-lcd/
 
 ------------------------
 
+How to display Degree symbol
+
+http://inkofpark.wordpress.com/2013/08/16/raspberry-pi-character-lcd-degree-symbol/
+
+-----------------------
+
 humidity / temp sensor
 
 ------------------------
