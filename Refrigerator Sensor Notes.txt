@@ -1,0 +1,56 @@
+------------------------------
+I2C (for communicating with display)
+
+sudo apt-get install python-smbus i2c-tools
+
+sudo nano /etc/modules
+  Add these two lines:
+i2c-bcm2708 
+i2c-dev
+
+
+sudo apt-get update
+sudo apt-get install build-essential python-dev python-smbus python-pip git
+sudo pip install RPi.GPIO
+git clone https://github.com/adafruit/Adafruit_Python_CharLCD.git
+cd Adafruit_Python_CharLCD
+sudo python setup.py install
+
+
+Look at the contents of the char_lcd_plate.py file to see the basic usage of the character LCD plate class. The basic usage is to import the library and create an instance of the Adafruit_CharLCDPlate class. The char LCD plate class is smart enough to know how to talk to the character LCD plate without any configuration or parameters. 
+
+Once you have an instance of the Adafruit_CharLCDPlate class there are a few functions you can call to interact with the display:
+
+message(text)
+Print the provided string message to the display. The text string can include linebreak characters ('\n') and will move to the next line when found in the string.
+
+clear()
+Clear the display and reset the position of message printing to the first column and first line.
+
+set_color(red, green, blue)
+Set the color of the red, green, and blue backlight LEDs. Each color value should be a 1 for on or 0 for off. For example to set a red backlight call set_color(1,0,0) or to set a purple color call set_color(1,0,1).
+
+-------------------------
+
+LCD Plate menu system
+
+http://forums.adafruit.com/viewtopic.php?f=47&t=37191
+
+downloaded from github at https://github.com/aufder/RaspberryPiLcdMenu
+
+------------------------
+
+code to shut down by long-press on Select button
+
+http://chrisrogers.me.uk/blog/turn-raspberry-pi-off-using-adafruit-lcd/
+
+------------------------
+
+humidity / temp sensor
+
+------------------------
+
+temp sensors
+
+------------------------
+
