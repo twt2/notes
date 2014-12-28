@@ -1,0 +1,10 @@
+20 November 2014
+
+deleted extra parts of partition table
+
+moved everything into 1 partition (plus swap)
+
+55526556-e5f6-42db-bd51-e56def03954b
+/dev/sda2 or (hd0,2) or (hd0,msdos2)
+
+Now learning how to activate GPT (guid partition table)
