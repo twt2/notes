@@ -5,7 +5,7 @@ htmi_force_hotplug=1
 config_hdmi_boost=4
 
 # COBY model TFTV2225 tweaks
-# started with 1366 x 768 (my ViewSonic?)
+# started with 1366 x 768 (specs reported online)
 # COBY reports 1280 x 720 on boot
 framebuffer_width=1280
 framebuffer_height=720
