@@ -1,13 +1,9 @@
 notes
 =====
 
-various items I might need to know
+various items I might need to know, especially for Raspberry Pi projects
 
-Once upon a time, there was a README who didn't have anything in it.
+though it may contain some other stuff over time
 
-Someone used the editor in github and updated it.
-
-OH wow. Wow. I see it now.
-
-BY THE WAY I was following the process at 
+BY THE WAY for my first iteration of this document I was following the process at 
 https://guides.github.com/activities/hello-world/
