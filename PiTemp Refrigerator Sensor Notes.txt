@@ -1,3 +1,6 @@
+New (December 2014) GitHub Collection of ALL AdaFruit Raspberry Pi python code:
+https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code
+
 ------------------------------
 I2C (for communicating with display)
 
