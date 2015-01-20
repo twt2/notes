@@ -59,9 +59,31 @@ http://chrisrogers.me.uk/blog/turn-raspberry-pi-off-using-adafruit-lcd/
 
 ------------------------
 
-How to display Degree symbol
+How to display Degree symbol (plus set paths & modprobe in python)
 
 http://inkofpark.wordpress.com/2013/08/16/raspberry-pi-character-lcd-degree-symbol/
+
+# This is the process of importing the Adafruit library
+adafruitCharLCDPath = "/home/pi/pylib/AdafruitPy/Adafruit_CharLCD"
+if not adafruitCharLCDPath in sys.path:
+    sys.path.append( adafruitCharLCDPath)
+    from Adafruit_CharLCD import Adafruit_CharLCD
+ 
+os.system('modprobe w1-gpio')
+os.system('modprobe w1-therm')
+ 
+temp_c = 23.1
+temp_f = 32. + temp_c*9./5.
+ 
+lcd = Adafruit_CharLCD()
+lcd.clear()
+lcd.message("temp C")
+lcd.write4bits( 0xDF, True)
+lcd.message(": %.1f\n"%temp_c)
+ 
+lcd.message("temp F")
+lcd.write4bits( 0xDF, True)
+lcd.message(": %.1f"%temp_f)
 
 -----------------------
 
