@@ -1,0 +1,20 @@
+discovered at http://www.raspberrypi.org/forums/viewtopic.php?f=63&t=6685
+
+(May not be absolutely up-to-date.)
+
+1) When the Raspberry Pi is first turned on, the ARM core is off, and the GPU core is on. 
+At this point the SDRAM is disabled.
+
+2) The GPU starts executing the first stage bootloader, which is stored in ROM on the SoC. 
+The first stage bootloader reads the SD card, and loads the second stage bootloader 
+(bootcode.bin) into the L2 cache, and runs it.
+
+3) bootcode.bin enables SDRAM, and reads the third stage bootloader (loader.bin) from the 
+SD card into RAM, and runs it.
+
+4) loader.bin reads the GPU firmware (start.elf).
+
+5) start.elf reads config.txt, cmdline.txt and kernel.img
+
+
+the latest (pre-compiled) firmware is tracked here: https://github.com/raspberrypi/firmware
