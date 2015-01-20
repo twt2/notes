@@ -88,6 +88,14 @@ lcd.message(": %.1f"%temp_f)
 -----------------------
 
 humidity / temp sensor
+AM2302 Sensor, Equivalent to DHT22
+uses library at https://github.com/adafruit/Adafruit_Python_DHT
+depends on Broadcom bcm2835 GPIO library for C portion
+do NOT use default GPIO pin -- 
+AdaFruit library uses GPIO4 / Pi pin 7 by default.
+(This conflicts with w1/OneWire kernel module default GPIO4 / Pi pin 7.)
+(AM2302 does NOT use w1/OneWire.)
+AM2302 can be read only once every two seconds
 
 ------------------------
 
