@@ -1,4 +1,5 @@
 # config.txt items 
+# LOTS more in  http://elinux.org/RPi_config.txt
 # use HDMI regardless
 htmi_force_hotplug=1
 # boost HDMI signal (may not be necessary)
