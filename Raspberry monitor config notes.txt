@@ -1,5 +1,7 @@
 # config.txt items 
-# LOTS more in  http://elinux.org/RPi_config.txt
+# LOTS more at  http://elinux.org/RPi_config.txt
+# examples here http://www.raspberrypi.org/forums/viewtopic.php?f=29&t=24679
+#
 # use HDMI regardless
 htmi_force_hotplug=1
 # boost HDMI signal (may not be necessary)
