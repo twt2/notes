@@ -2,6 +2,11 @@ New (December 2014) GitHub Collection of ALL AdaFruit Raspberry Pi python code:
 https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code
 
 ------------------------------
+
+2013 blog post "Raspberry Pi temperature logging using DS18B20 and Google Docs"
+http://www.danielhansen.net/2013/03/raspberry-pi-temperature-logging-using.html
+
+------------------------------
 I2C (for communicating with display)
 
 sudo apt-get install python-smbus i2c-tools
