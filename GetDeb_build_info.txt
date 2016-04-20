@@ -1,0 +1,229 @@
+
+Subject: Re: Contact Form (getdeb-1459536195)
+To: Tommy Trussell <tommy.trussell@gmail.com>,
+ GetDeb Contact <contact@getdeb.net>
+Date: Fri, 1 Apr 2016 21:38:27 +0200
+From: Christoph Korn <christoph.korn@posteo.de>
+To: Tommy Trussell <tommy.trussell@gmail.com>,
+ GetDeb Contact <contact@getdeb.net>
+
+Hello,
+
+once the xenial repository on GetDeb is released there will also be a new=
+
+release of GnuCash published.
+
+The build files for version 2.6.11 are here:
+https://github.com/ckorn/GetDeb/tree/25d3a50ea5168bc87f4bec929a3f4229854d=
+1475/gnucash
+
+If you want to build the package for yourself I recommend to create a sch=
+root
+(secure change root) environment for building. There is a script for it:
+https://github.com/ckorn/debfactory/blob/master/bin/build_schroot.py
+
+Just choose xenial as release and i386 or amd64 as architecture (dependin=
+g on
+your system).
+The schroot can be installed to something like /var/chroot
+
+You can then enter the schroot with this command:
+schroot -c xenial-i386 -p
+Use xenial-amd64 for amd64 of course.
+
+Then use these commands to install the build dependencies.
+Run them inside the source directory. The debian directory has to exist t=
+oo:
+$ sudo apt-get --force-yes -y install nano aptitude equivs pbuilder
+ubuntu-dev-tools
+$ sudo mk-build-deps -i -r -t 'apt-get --force-yes -y'
+
+This command should build the package finally:
+debuild -us -uc -b | tee ../build_log
+
+Best regards
+Christoph Korn
+
+-------------------------------------
+
+Date: Tue, 19 Apr 2016 15:52:29 -0500
+Subject: Re: Contact Form (getdeb-1459536195)
+From: Tommy Trussell <tommy.trussell@gmail.com>
+To: Christoph Korn <christoph.korn@posteo.de>
+Cc: GetDeb Contact <contact@getdeb.net>
+
+Christoph -- as you may have seen, we got GnuCash 2.6.12 into Xenial!
+Fortunately for us, the Debian package now builds without ANY changes, so
+if you look they didn't even change the version in the changelog; it builds
+as a Debian native source package in every way.
+
+I am very slow to make progress, so I was afraid we might have been too
+late, but all worked out.
+
+As you and I discussed, I was beating my head against pbuilder because my
+goal was to get the package accepted into the Xenial repository instead of
+the particularly buggy version GnuCash 2.6.9, and it looked like if I could
+get it to build in pbuilder then that would be evidence that it doesn't
+suffer the dreaded "fails to build from source" error.
+
+I still don't quite understand why y'all chose to create a different kind
+of build environment for GetDeb. I don't even understand the differences; I
+just know that I couldn't get the GetDeb packages to build in pbuilder.
+(Actually the Debian packages didn't either, so maybe Xenial is quite
+different for some reason.) Right now I'm running a test build of GnuCash
+using pbuilder-dist xenial just to see it work. (It was the Ubuntu sponsor
+who told me it did.)
+
+SO that is a question -- can you point me to something that might explain
+why the package wasn't building in Xenial with all sorts of errors, but now
+it builds perfectly. Is it just that Xenial is just days away from being
+released, and at this point it's "ready for prime time" and also as close
+as it will ever be to Debian Testing?
+
+Another question is why you folks use a special chroot instead of the
+already-created pbuilder tools. I know I could never configure pbuilderrc
+to make pdebuild work exactly like pbulder-dist, so I finally gave up on
+the "clean" environment and created a test VM and used debuild until I got
+the package to work, and then switched to pbuilder-dist JUST to create a
+build log. Is that why GetDeb uses its own chroot?
+
+I'm not much of a programmer so if the explanation is likely beyond my
+understanding, feel free to say so. On the other hand, if you think I might
+benefit from some documentation you created for GetDeb, I'd be happy to
+read it.
+
+Thank you for your encouragement. I really appreciate it!
+
+---------------------------------------------------
+
+Subject: Re: Contact Form (getdeb-1459536195)
+To: Tommy Trussell <tommy.trussell@gmail.com>
+Cc: GetDeb Contact <contact@getdeb.net>
+From: Christoph Korn <christoph.korn@posteo.de>
+Date: Tue, 19 Apr 2016 23:39:27 +0200
+
+Hey,  first congratulations for the release in Xenial.
+
+The official repositories are the way to go for new releases. Especially
+before a new Ubuntu release.
+So as the latest version is in Xenial now you may have to inform me about=
+ the
+first new release of GnuCash so I don't miss it ;)
+
+The reason for the chroot is that we have the full control about what pac=
+kages
+are installed there (don't know if pbuilder offers the same functionality=
+,
+because I never actually used it).
+It's a clean environment where no packages are installed which you cannot=
+ rely
+to be installed on a fresh Ubuntu installation.
+Once you got everything set up (which usually should not be more than one=
+
+command and maybe some configuration edits) you can try building and runn=
+ing
+packages in this environment. In my personal settings you do not even pol=
+lute
+your $HOME directory with all kinds of configuration files which apps may=
+
+create. As I test some packages over the year in the chroot I am happy th=
+at my
+$HOME directory always stays clean.
+
+I use this configuration file which does not mount my entire $HOME direct=
+ory
+to the chroot but only some subdirs:
+
+/etc/schroot/nohome/fstab
+
+# fstab: static file system information for chroots.
+# Note that the mount point will be prefixed by the chroot path
+# (CHROOT_PATH)
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+/proc           /proc           none    rw,bind         0       0
+/sys            /sys            none    rw,bind         0       0
+/dev            /dev            none    rw,bind         0       0
+/dev/pts        /dev/pts        none    rw,bind         0       0
+/home/korn/Downloads /home/korn/Downloads           none    rw,bind         0       0
+/home/korn/packages  /home/korn/packages none, rw,bind 0 0
+/tmp            /tmp            none    rw,bind         0       0
+/media/korn/Data     /media/korn/Data     none    rw,bind         0       0
+/usr/local/bin       /usr/local/bin       none    r,bind          0       0
+
+# It may be desirable to have access to /run, especially if you wish
+# to run additional services in the chroot.  However, note that this
+# may potentially cause undesirable behaviour on upgrades, such as
+# killing services on the host.
+#/run           /run            none    rw,bind         0       0
+#/run/lock      /run/lock       none    rw,bind         0       0
+#/dev/shm       /dev/shm        none    rw,bind         0       0
+#/run/shm       /run/shm        none    rw,bind         0       0
+
+---------------
+
+
+Then in the configuration file for the wily-amd64 schroot e.g. I just hav=
+e to
+use this profile:
+/etc/schroot/chroot.d/wily-amd64
+
+[wily-amd64]
+type=directory
+directory=/var/chroot/wily-amd64
+union-type=aufs
+groups=lpadmin
+preserve-environment=true
+profile=nohome
+aliases=default
+
+---------------
+
+
+If you want to create such a profile for yourself just create a new profi=
+le
+which is derived from the default profile:
+$ sudo cp -a /etc/schroot/default /etc/schroot/nohome
+
+Then change the /etc/schroot/nohome/fstab file accordingly.
+
+Some problem I have when using the schroot this way is, that my $HOME
+directory is not owned by me but by root. This is why applications cannot=
+
+create files or directories.
+So after entering a schroot I run this command every time (actually you h=
+ave
+to run it this way to make the loading of the alias file work ".
+/usr/local/bin/chroot_init"):
+
+/usr/local/bin/chroot_init
+
+#!/bin/bash
+sudo chown korn ~
+source ~/.bash_aliases
+
+if [ -f debian/control ] ; then
+	sudo apt-get --force-yes -y install nano aptitude equivs pbuilder ubuntu-dev-tools
+	sudo mk-build-deps -i -r -t 'apt-get --force-yes -y'
+fi
+
+----------------------------
+
+
+But in case you are inside a package directory it automatically installs =
+all
+the build dependencies automatically so you can directly start to build t=
+he
+package with this command:
+$ debuild -us -uc -b | tee ../build_log
+
+To be helpful for your detailed problems I need some sort of terminal out=
+put
+or error log as it is hard to tell what went wrong there.
+
+So I start doing my backups now so I can wipe my disk for the final relea=
+se on
+thursday ;)
+
+Best regards
+Christoph Korn
