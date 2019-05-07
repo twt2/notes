@@ -1,0 +1,220 @@
+
+[TWT 2019-05-03: adding some info. See also my notes from 2015 below]
+
+https://wiki.gnucash.org/wiki/Documentation_Update_Instructions
+
+https://wiki.gnucash.org/wiki/Initializing_Documentation_Build_Environment
+
+https://wiki.gnucash.org/wiki/Test_Documentation_in_Linux
+
+
+Current dev tools:
+git
+text editor
+SVG capable graphics such as LibreOffice Draw
+print screen utility
+imagemagick
+
+Build toolchain components
+libtoolize
+automake
+xsltproc
+fop  [optional?]
+calibre  [optional?]
+
+(optional? because it's important for builds and what's in git is exactly what runs on the build server. But optional because writers don't absolutely need them.)
+
+$ ../configure --with-mobi
+...
+checking for fop... /usr/bin/fop
+[warning] /usr/bin/fop: JVM flavor 'sun' not understood
+[BUT IT SEEMS TO WORK... MOSTLY?]
+
+
+THREE OF MANY articles about asciidoc
+https://ivoanjo.me/blog/2017/10/22/asciidoc-an-awesome-markdown-alternative/
+https://wolandscat.net/2015/09/11/goodbye-to-adobe-framemaker-hello-asciidoctor/
+https://blogs.gnome.org/pmkovar/2015/10/27/converting-docbook-into-asciidoc/
+
+ARTICLE about DAPS
+https://www.suse.com/c/yes-we-can-technical-documentation-with-daps-for-docbook-and-asciidoc/
+
+ARTICLE about DAPS and Publican
+http://www.linux-magazine.com/Issues/2016/183/DocBook-XML-Publishing
+
+
+ANOTHER tool to test: asciidoc
+http://asciidoc.org/
+
+ANOTHER tool to test: asciidoctor
+https://github.com/asciidoctor/asciidoctor
+https://asciidoctor.org/docs/user-manual/
+http://gist.asciidoctor.org/
+http://gist.asciidoctor.org/?github-asciidoctor%2Fasciidoctor.org%2F%2Fdocs%2Fmigration.adoc
+
+ANOTHER tool to test: docbookrx
+https://github.com/asciidoctor/docbookrx
+
+CUTE try asciidoc in your browser
+http://espadrine.github.io/AsciiDocBox/
+
+ANOTHER toolchain to test: DAPS
+https://github.com/openSUSE/daps
+
+[native Ubuntu DAPS packages are in Disco and Eoan but not before]
+
+
+Yet another tool to test: Antora
+
+https://matthewsetter.com/why-antora-is-the-leading-technical-writing-platform/
+
+asciidoc + navigation + ?
+
+
+
+
+
+Hacking on GnuCash Documentation Guidelines
+===========================================
+
+This document is an introduction to hacking the GnuCash documentation.
+
+For both reviewers and documentation writers;
+
+Please read the following guides:
+http://developer.gnome.org/gdp-handbook/stable/
+http://developer.gnome.org/gdp-style-guide/stable/
+
+TODO
+[TWT 2015-09-10: Links above broken. The following link includes style guide but not the "handbook," which is no longer available, as far as I can tell.]
+https://developer.gnome.org/guides#gdp-documentation
+
+Other useful references;
+
+The following links are for further sites that can help with the
+documentation and review process.
+http://www.docbook.org (has a comprehensive online guide to docbook)
+http://developer.gnome.org/hig-book/stable/ (GNOME Human Interface
+Guidelines)
+
+I suggest also subscribing to gnucash-devel, but this is not absolutely
+necessary.
+
+Reviewers;
+
+Please clone the documentation module from the GnuCash git -
+gnucash-docs. For those not familiar with git, the gnucash wiki has a
+description at http://wiki.gnucash.org/wiki/Git . The only change
+to get the docs is to clone gnucash-docs instead of gnucash. You can 
+also start from the current docs tarball.
+
+[TWT 2015: http://wiki.gnucash.org/wiki/Git instead; change to git terminology, such as "clone"]
+
+I think the best way of retaining comments about docs in an easy to find
+way for everyone would be to use bugzilla.gnome.org to file the bugs
+under documentation. This can also be done using bug-buddy.
+
+Writers;
+
+See http://www.gnucash.org/develdocs.phtml which includes links to several 
+helpful resources. If you notice errors or improvements needed in these 
+documentation instruction pages, you can update the wiki pages yourself, 
+or file bugs so volunteer developers can push updated pages to the 
+www.gnucash.org web site.
+
+
+Clone the gnucash-docs git repository to your computer as above. The usual 
+procedure for contributing to GnuCash documentation is to announce to the 
+gnucash-devel mailing list which section(s) of the documentation you are 
+working on. Once you learn to create valid patches, attach them to relevant 
+documentation bugs in bugzilla. A volunteer developer will manage getting the 
+patches merged into git. 
+
+I would like writers to also let other know their intentions of which
+section they wish to tackle. Please forward this to gnucash-devel so
+that people can say 'hey I'm doing that already' or some such.
+
+You may also want to retail a local copy of the old documentation to
+refer to when writing. This still has a lot of useful information in it
+which hasn't been transferred to the new docs.
+
+NOTE: The id used in the <chapter> and <sect1> tags are important as they define
+the name used when the html pages are generated. Please be careful with these.
+
+<chapter> and <sect1> tags are also used to create the sidebar index in yelp
+and are an important bonus to ease-of-use of the final documentation.
+
+Chris Lyttle
+28th May 2006
+
+--------------------
+
+SGML tweaks;
+
+There are a couple of common tweaks in the XML files to allow SGML tools to
+operate - for PDF generation. The tweaks are minor but common (and to those
+familiar with XML a touch bizarre / annoying). If necessary, I can add a
+Perl script to do the syntax changes automatically, but for now these are
+the changes:
+
+1. Avoid using the XML empty tag, specify the closing tag.
+	e.g. <para></para> instead of </para />
+2. Avoid a newline after <entry> tags.
+	e.g. <entry><para> instead of <entry>\n<para>
+3. Avoid underscores in id attribute values.
+	e.g. id="getting-started" instead of id="getting_started"
+5. Use <chapter> and <sect1>.
+
+These are minor and don't affect the normal XML content in any way.
+(OK, the loss of < /> adds some extra characters.) However, the problem
+with these is the sheer number of tags that use the pre-tweaked syntax.
+SGML tools can deal with small numbers of these errors (commonly <200),
+so this is an advisory. If you're editing the XML, please consider this
+advice and make my life a little easier when it comes to PDF's.
+
+Thanks.
+
+Neil Williams
+<linux@codehelp.co.uk>
+9th March 2005.
+
+--------------------
+
+Generating PDF
+
+The GnuCash documentation build system can generate pdfs from the
+guide's and help manual's xml source files, provided you have the proper
+tools available on your system. This functionality was introduced by
+Tom Browder (<tom.browder@gmail.com>) and improved by
+Geert Janssens (<janssens-geert@telenet.be>).
+
+Other than xsltproc (which is already required to build html documentation)
+you also need Apache fop 0.95 or more recent. 
+
+At the time of this writing, you can install fop straight from any of the
+current distros' package repositories, or at least fop is available in one
+of the addon repositories.
+
+* Fedora 12 and up: fop is in the main repository
+* Debian Lenny: fop 0.95 has been backported
+* Debian Squeeze and up: fop is in the main repository
+* CentOS 5: fop can be installed via EPEL testing
+* Ubuntu 9.10 and up: fop is in the universe repository
+
+If your distro doesn't ship fop you can still install it manually. It
+is available at http://xmlgraphics.apache.org/fop
+and it requires:
+
+     a.  Sun Java JDK >= 1.4
+         available at: http://java.sun.com/javase/downloads/index.jsp
+
+         (I chose the "JDK 6 Update 7" download.)
+
+     b.  ant >= 1.7
+         available at: http://ant.apache.org
+
+
+TODO
+[TWT 2015-09-10: What about pandoc? Can it replace any of the tools listed in the sections
+above, such as fop?]
+
