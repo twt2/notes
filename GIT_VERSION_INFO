@@ -1,0 +1,135 @@
+%H: 
+  commit hash
+
+%h: 
+  abbreviated commit hash
+
+%T: 
+  tree hash
+
+%t: 
+  abbreviated tree hash
+
+%P: 
+  parent hashes
+
+%p: 
+  abbreviated parent hashes
+
+%an: 
+  author name
+
+%aN: 
+  author name respecting .mailmap
+
+%ae: 
+  author email
+
+%aE: 
+  author email respecting .mailmap
+
+%ad: 
+  author date respecting --date= option
+
+%aD: 
+  author date, RFC2822 style
+
+%ar: 
+  author date, relative
+
+%at: 
+  author date, UNIX timestamp
+
+%ai: 
+  author date, ISO 8601-like format
+
+%aI: 
+  author date, strict ISO 8601 format
+
+%cn: 
+  committer name
+
+%cN: 
+  committer name respecting .mailmap
+
+%ce: 
+  committer email
+
+%cE: 
+  committer email respecting .mailmap
+
+%cd: 
+  committer date respecting --date= option
+
+%cD: 
+  committer date, RFC2822 style
+
+%cr: 
+  committer date, relative
+
+%ct: 
+  committer date, UNIX timestamp
+
+%ci: 
+  committer date, ISO 8601-like format
+
+%cI: 
+  committer date, strict ISO 8601 format
+
+%d: 
+  ref names, like the --decorate option of git-log(1)
+
+%D: 
+  ref names without the " (", ")" wrapping.
+
+%e: 
+  encoding
+
+%s: 
+  subject
+
+%f: 
+  sanitized subject line, suitable for a filename
+
+%b: 
+  body
+
+%B: 
+  raw body (unwrapped subject and body)
+
+%N: 
+  commit notes
+
+%GG: 
+  raw verification message from GPG for a signed commit
+
+%G?: 
+  Signature status 
+    "G" good "B" bad "U" unknown "X" expired 
+    "Y" good but expired key "R" good but revoked key 
+    "E" cannot check "N" for no signature
+
+%GS: 
+  show the name of the signer for a signed commit
+
+%GK: 
+  show the key used to sign a signed commit
+
+%gD: 
+  reflog selector
+
+%gd: 
+  shortened reflog selector; same as %gD, but the refname
+
+%gn: 
+  reflog identity name
+
+%gN: 
+  reflog identity name respecting .mailmap
+
+%ge: 
+  reflog identity email
+
+%gs: 
+  reflog subject
+
